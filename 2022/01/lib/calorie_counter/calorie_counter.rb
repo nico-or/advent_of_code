@@ -3,7 +3,7 @@ class CalorieCounter
     @elves = InputParser.parse(input).map { Elve.new(_1) }
   end
 
-  def max_calories
-    @elves.map(&:total_calories).max
+  def max_calories(n = 1)
+    @elves.map(&:total_calories).max(n).sum
   end
 end
