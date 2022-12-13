@@ -1,4 +1,5 @@
 require_relative "rucksack/rucksack"
+require_relative "rucksack/group"
 
 module Rucksack
   ITEMS = ("a".."z").to_a + ("A".."Z").to_a
