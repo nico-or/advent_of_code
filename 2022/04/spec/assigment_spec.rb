@@ -46,4 +46,30 @@ describe Assigment do
       end
     end
   end
+
+  describe "#overlap?" do
+    context "partially contained assigments" do
+      let(:first) { described_class.new ("2-8") }
+      let(:second) { described_class.new ("6-10") }
+
+      it { expect(first.overlap?(second)).to be(true) }
+      it { expect(second.overlap?(first)).to be(true) }
+    end
+
+    context "fully contained assigments" do
+      let(:first) { described_class.new ("2-8") }
+      let(:second) { described_class.new ("4-4") }
+
+      it { expect(first.overlap?(second)).to be(true) }
+      it { expect(second.overlap?(first)).to be(true) }
+    end
+
+    context "non overlaping assigments" do
+      let(:first) { described_class.new ("2-5") }
+      let(:second) { described_class.new ("6-7") }
+
+      it { expect(first.overlap?(second)).to be(false) }
+      it { expect(second.overlap?(first)).to be(false) }
+    end
+  end
 end

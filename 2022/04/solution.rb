@@ -11,3 +11,7 @@ end
 pairs.count do |first, second|
   first.fully_contain?(second) || second.fully_contain?(first)
 end.tap { puts "Count of assigment pairs where one is fully contained: #{_1}" }
+
+pairs.count do |first, second|
+  first.overlap?(second)
+end.tap { puts "Count of assigment pairs that overlap: #{_1}" }

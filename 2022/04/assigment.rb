@@ -12,4 +12,12 @@ class Assigment
   def fully_contain?(assigment)
     include?(assigment.start) && include?(assigment.end)
   end
+
+  def overlap?(other)
+    self.entries.intersection(other.entries).any?
+  end
+
+  def entries
+    Range.new(self.start, self.end).entries
+  end
 end
