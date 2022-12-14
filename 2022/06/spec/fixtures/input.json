@@ -1,7 +1,27 @@
 [
-  { "datastream": "mjqjpqmgbljsphdztnvjfqwrcgsmlb", "marker": 7 },
-  { "datastream": "bvwbjplbgvbhsrlpgdmjqwftvncz", "marker": 5 },
-  { "datastream": "nppdvjthqldpwncqszvftbrmjlhg", "marker": 6 },
-  { "datastream": "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg", "marker": 10 },
-  { "datastream": "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", "marker": 11 }
+  {
+    "datastream": "mjqjpqmgbljsphdztnvjfqwrcgsmlb",
+    "packet_marker": 7,
+    "message_marker": 19
+  },
+  {
+    "datastream": "bvwbjplbgvbhsrlpgdmjqwftvncz",
+    "packet_marker": 5,
+    "message_marker": 23
+  },
+  {
+    "datastream": "nppdvjthqldpwncqszvftbrmjlhg",
+    "packet_marker": 6,
+    "message_marker": 23
+  },
+  {
+    "datastream": "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg",
+    "packet_marker": 10,
+    "message_marker": 29
+  },
+  {
+    "datastream": "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw",
+    "packet_marker": 11,
+    "message_marker": 26
+  }
 ]

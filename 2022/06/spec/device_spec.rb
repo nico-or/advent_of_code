@@ -1,20 +1,31 @@
 require "json"
 
 describe Device do
-  describe ".marker" do
-    it do
-      stream = File.read("./spec/fixtures/input.txt")
-      marker = Device.marker(stream)
+  let(:device) { Device.new }
 
-      expect(marker).to eq(7)
+  describe "#packet_marker" do
+    it do
+      device.message = File.read("./spec/fixtures/input.txt")
+      expect(device.packet_marker).to eq(7)
     end
 
     it do
       streams = File.open("./spec/fixtures/input.json") { JSON.load _1 }
       streams.each do |json|
-        datastream = json["datastream"]
-        marker = json["marker"]
-        expect(Device.marker(datastream)).to eq(marker)
+        device.message = json["datastream"]
+        marker = json["packet_marker"]
+        expect(device.packet_marker).to eq(marker)
+      end
+    end
+  end
+
+  describe "#message_marker" do
+    it do
+      streams = File.open("./spec/fixtures/input.json") { JSON.load _1 }
+      streams.each do |json|
+        device.message = json["datastream"]
+        marker = json["message_marker"]
+        expect(device.message_marker).to eq(marker)
       end
     end
   end

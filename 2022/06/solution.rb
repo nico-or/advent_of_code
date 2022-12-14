@@ -1,3 +1,5 @@
 require_relative "lib/device"
 
-puts Device.marker(File.read "input.txt")
+device = Device.new(File.read "input.txt")
+puts "Message marker count: #{device.packet_marker}"
+puts "Message marker count: #{device.message_marker}"
