@@ -17,4 +17,9 @@ class Stack
   def ==(other)
     items == other.items
   end
+
+  def +(other)
+    @items += other
+    self
+  end
 end

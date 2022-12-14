@@ -35,9 +35,9 @@ class Collection
 
   def move!(string)
     instruction = Instruction.new(string)
-    instruction.count.times do
-      crate = @stacks[instruction.from].pop
-      @stacks[instruction.to].push(crate)
+    crates = instruction.count.times.with_object([]) do |count, arr|
+      arr << @stacks[instruction.from].pop
     end
+    @stacks[instruction.to] += crates.reverse
   end
 end

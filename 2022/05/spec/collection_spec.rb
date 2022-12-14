@@ -31,7 +31,7 @@ describe Collection do
       instruction = "move 2 from 2 to 1"
       collection.move!(instruction)
 
-      expect(collection[0]).to eq(Stack.new("ZNDC"))
+      expect(collection[0]).to eq(Stack.new("ZNCD"))
       expect(collection[1]).to eq(Stack.new("M"))
     end
   end

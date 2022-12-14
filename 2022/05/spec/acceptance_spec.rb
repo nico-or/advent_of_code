@@ -7,6 +7,6 @@ describe "Acceptance" do
 
     parser.instructions.each { collection.move!(_1) }
 
-    expect(collection.code).to eq("CMZ")
+    expect(collection.code).to eq("MCD")
   end
 end
