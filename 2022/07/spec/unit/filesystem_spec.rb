@@ -16,6 +16,7 @@ describe Filesystem::Filesystem do
       filesystem.mkdir("foo")
     end
 
+    it { expect(filesystem.name).to eq("/") }
     it { expect(filesystem.size).to eq(0) }
     it { expect(filesystem.childs.count).to eq(1) }
   end

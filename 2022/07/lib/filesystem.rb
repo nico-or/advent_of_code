@@ -1,3 +1,4 @@
+require_relative "filesystem/node"
 require_relative "filesystem/file"
 require_relative "filesystem/directory"
 require_relative "filesystem/filesystem"

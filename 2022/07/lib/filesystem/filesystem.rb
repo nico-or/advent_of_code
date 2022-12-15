@@ -2,8 +2,12 @@ module Filesystem
   class Filesystem
     attr_reader :root, :head
 
+    def size
+      root.size
+    end
+
     def mkdir(name)
-      if root == nil
+      if root.nil?
         @root = Directory.new(name)
         @head = root
       else

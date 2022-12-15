@@ -1,5 +1,5 @@
 module Filesystem
-  class File
+  class File < Node
     attr_reader :name, :size
 
     def initialize(name, size)

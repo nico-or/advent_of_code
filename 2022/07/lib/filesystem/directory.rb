@@ -1,5 +1,5 @@
 module Filesystem
-  class Directory
+  class Directory < Node
     attr_reader :name, :childs, :parent
 
     def initialize(name, parent = nil)
