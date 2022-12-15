@@ -1,13 +1,5 @@
-describe "sample input" do
-  let(:filesystem) do
-    filesystem = Filesystem::Filesystem.new
-
-    input = File.read("./spec/fixtures/input.txt")
-    input.lines.each do |instruction|
-      Filesystem.instruction(instruction, filesystem)
-    end
-    return filesystem
-  end
+describe Filesystem do
+  let(:filesystem) { Filesystem.from_file("./spec/fixtures/input.txt") }
 
   it "has correct size" do
     expect(filesystem.root.size).to eq(
@@ -28,5 +20,16 @@ describe "sample input" do
     end
 
     expect(directories.sum(&:size)).to eq(95_437)
+  end
+
+  it "selects directory 'd' as the one to delete" do
+    available_space = Filesystem::DISK_SIZE - filesystem.size
+    min_to_delete = Filesystem::UPDATE_SIZE - available_space
+
+    output = filesystem.directories.select do |dir|
+      dir.size >= min_to_delete
+    end.min
+
+    expect(output.name).to eq("d")
   end
 end

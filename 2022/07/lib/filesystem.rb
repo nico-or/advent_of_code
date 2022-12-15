@@ -4,6 +4,9 @@ require_relative "filesystem/directory"
 require_relative "filesystem/filesystem"
 
 module Filesystem
+  DISK_SIZE = 70_000_000
+  UPDATE_SIZE = 30_000_000
+
   def self.instruction(instruction, filesystem)
     case instruction
     when /\$ cd .+/
@@ -23,5 +26,15 @@ module Filesystem
       match = /(?'size'\d+) (?'name'.+)/.match(instruction)
       filesystem.touch(match["name"], match["size"].to_i)
     end
+
+    filesystem
+  end
+
+  def self.from_file(filename)
+    filesystem = Filesystem.new
+    Object::File.read(filename).lines.each do |instruction|
+      instruction(instruction, filesystem)
+    end
+    filesystem
   end
 end

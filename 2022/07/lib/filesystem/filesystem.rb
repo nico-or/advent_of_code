@@ -44,11 +44,19 @@ module Filesystem
       output = []
       queue = [root]
       until queue.empty?
-        current = queue.shift
+        current = queue.pop
         queue += current.childs if current.instance_of? Directory
         output << current if yield(current)
       end
       output
+    end
+
+    def directories
+      find_recursive { _1.instance_of? Directory }
+    end
+
+    def files
+      find_recursive { _1.instance_of? File }
     end
   end
 end
