@@ -36,4 +36,13 @@ describe Forest do
       expect(foo[:bottom].map(&:height)).to eq([5])
     end
   end
+
+  describe "#check_scenery!" do
+    it "gives score of 8 to the [3,2] tree" do
+      forest.check_scenery!
+      tree = forest.instance_variable_get(:@trees)[3][2]
+
+      expect(tree.score).to eq(8)
+    end
+  end
 end

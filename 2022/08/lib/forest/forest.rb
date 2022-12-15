@@ -51,6 +51,23 @@ class Forest
     end
   end
 
+  def check_scenery!
+    row_count = @trees.count
+    column_count = @trees.transpose.count
+
+    row_count.times do |i|
+      column_count.times do |j|
+        tree = @trees[i][j]
+
+        tree.score = surrounding_trees(i, j).reduce(1) do |memo, (direction, row)|
+          row = row.reverse if [:left, :top].include? direction
+
+          memo *= tree.view_distance(row)
+        end
+      end
+    end
+  end
+
   def surrounding_trees(i, j)
     {
       left: @trees[i][0...j],
