@@ -47,4 +47,16 @@ describe Head do
       expect(head.position).to eq([2, 2])
     end
   end
+
+  context "multiple knoted string" do
+    let(:head) { Head.new(0, 0, 2) }
+
+    describe "#knots" do
+      it "returns an array of tails" do
+        expect(head.knots).to be_an(Array)
+        expect(head.knots.first).to be_a(Tail)
+        expect(head.knots.count).to eq(2)
+      end
+    end
+  end
 end

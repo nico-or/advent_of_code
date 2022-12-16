@@ -1,15 +1,46 @@
 describe "Acceptance" do
-  let(:head) { Head.new }
+  context "first part" do
+    it do
+      head = Head.new
 
-  it do
-    instructions = File.read("./spec/fixtures/input.txt")
+      instructions = File.read("./spec/fixtures/input.txt")
+      instructions.lines.each do |instruction|
+        head.move(instruction)
+      end
 
-    instructions.lines.each do |instruction|
-      head.move(instruction)
+      visited_points = head.tail.memory
+
+      expect(visited_points.uniq(&:to_s).count).to eq(13)
+    end
+  end
+
+  context "second part" do
+    it "small input" do
+      head = Head.new(0, 0, 9)
+
+      instructions = File.read("./spec/fixtures/input.txt")
+
+      instructions.lines.each do |instruction|
+        head.move(instruction)
+      end
+
+      visited_points = head.knots.last.memory
+
+      expect(visited_points.uniq(&:to_s).count).to eq(1)
     end
 
-    visited_points = head.tail.memory
+    it "large input" do
+      head = Head.new(0, 0, 9)
 
-    expect(visited_points.uniq(&:to_s).count).to eq(13)
+      instructions = File.read("./spec/fixtures/multiple.txt")
+
+      instructions.lines.each do |instruction|
+        head.move(instruction)
+      end
+
+      visited_points = head.knots.last.memory
+
+      expect(visited_points.uniq(&:to_s).count).to eq(36)
+    end
   end
 end
