@@ -16,11 +16,6 @@ module Parser
     end
   end
 
-  def test(string)
-    num = find_integer(string)
-    ->(x) { (x % num).zero? }
-  end
-
   def find_integer(string)
     find_all_integers(string).first
   end

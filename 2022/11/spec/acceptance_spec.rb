@@ -1,55 +1,32 @@
 describe "Acceptance" do
-  let(:monkeys) do
-    input = File.read("./spec/fixtures/input.txt")
-    input.split("\n\n").map { Monkey.new _1 }
+  let(:monkeys) { Monkey.from_file("./spec/fixtures/input.txt") }
+
+  it "counts inspected items correctly after 1 round" do
+    1.times { Monkey.round(monkeys) }
+
+    solution = [2, 4, 3, 6]
+    expect(monkeys.map(&:inspected_items)).to eq(solution)
   end
 
-  it "solves 1 round correctly" do
-    1.times { round(monkeys) }
+  it "counts inspected items correctly after 20 rounds" do
+    20.times { Monkey.round(monkeys) }
 
-    solution = [
-      [20, 23, 27, 26],
-      [2080, 25, 167, 207, 401, 1046],
-      [],
-      [],
-    ]
-    expect(monkeys.map(&:items)).to eq(solution)
+    solution = [99, 97, 8, 103]
+
+    expect(monkeys.map(&:inspected_items)).to eq(solution)
   end
 
-  it "solves 2 rounds correctly" do
-    2.times { round(monkeys) }
+  it "counts the inspected items correctly after 1_000 rounds" do
+    1_000.times { Monkey.round(monkeys) }
 
-    solution = [
-      [695, 10, 71, 135, 350],
-      [43, 49, 58, 55, 362],
-      [],
-      [],
-    ]
-    expect(monkeys.map(&:items)).to eq(solution)
+    solution = [5_204, 4_792, 199, 5_192]
+    expect(monkeys.map(&:inspected_items)).to eq(solution)
   end
 
-  it "solves 20 rounds correctly" do
-    20.times { round(monkeys) }
+  it "counts the inspected items correctly after 10_000 rounds" do
+    10_000.times { Monkey.round(monkeys) }
 
-    solution = [
-      [10, 12, 14, 26, 34],
-      [245, 93, 53, 199, 115],
-      [],
-      [],
-    ]
-
-    expect(monkeys.map(&:items)).to eq(solution)
-  end
-
-  it "counts the inspected items correctly after 20 rounds" do
-    20.times { round(monkeys) }
-
-    item_count = monkeys.map(&:inspected_items)
-    monkey_businnes = item_count.max(2).reduce(1, :*)
-
-    solution = [101, 95, 7, 105]
-
-    expect(item_count).to eq(solution)
-    expect(monkey_businnes).to eq(10605)
+    solution = [52_166, 47_830, 1_938, 52_013]
+    expect(monkeys.map(&:inspected_items)).to eq(solution)
   end
 end

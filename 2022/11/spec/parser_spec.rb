@@ -50,15 +50,6 @@ describe Parser do
     end
   end
 
-  describe "#test" do
-    it "parses a divisible by {other} string" do
-      string = "  Test: divisible by 13"
-      test = test(string)
-      expect(test.call(13)).to eq(true)
-      expect(test.call(14)).to eq(false)
-    end
-  end
-
   describe "#find_all_integers" do
     it "parses an starting items string" do
       string = "  Starting items: 54, 65, 75, 74"
