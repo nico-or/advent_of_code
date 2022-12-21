@@ -51,4 +51,19 @@ describe Reading do
       expect(position_count).to eq(reading.range * 2 + 1)
     end
   end
+
+  describe "#frontier_positions" do
+    it "returns the 16 positions adjacent to the sensor range" do
+      pos_sample = [
+        [4, 0], [0, 4],
+        [2, 2],
+        [1, 3], [-1, -3],
+      ]
+
+      positions = reading.frontier_positions
+
+      expect(positions.uniq.count).to eq(16)
+      expect(positions).to include(*pos_sample)
+    end
+  end
 end

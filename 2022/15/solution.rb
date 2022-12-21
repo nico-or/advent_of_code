@@ -26,3 +26,46 @@ filtered_positions = covered_positions.difference(known_positions)
 
 print "\n"
 puts "positions covered at y = #{y_reading}: #{filtered_positions.count}"
+
+# part 2
+print "\n" * 2
+puts "Part 2\n#{"-" * 20}"
+
+range_limit = case filename
+  when "sample.txt"
+    x_range = 0..20
+    y_range = 0..20
+  when "input.txt"
+    x_range = 0..4_000_000
+    y_range = 0..4_000_000
+  end
+
+frontier_positions = readings.flat_map.with_index do |position, idx|
+  puts sprintf("getting frontier_positions for sensor %2d/%2d", idx, readings.count)
+  position.frontier_positions
+end
+
+print "\n"
+puts "Positions to search (all) #{frontier_positions.count}"
+
+frontier_positions.select! { |x_pos, y_pos| x_range.include?(x_pos) && y_range.include?(y_pos) }
+puts "Positions to search (in bound) #{frontier_positions.count}"
+
+print "\n"
+total = frontier_positions.count
+digits = Math.log10(total).to_i
+report_count = 10
+
+beacon_position = frontier_positions.find.with_index do |position, idx|
+  puts sprintf("filtering positions... % 3d%%", idx / total.to_f * 100) if (idx % (total / report_count)).zero?
+  readings.none? { |reading| reading.in_range?(position) }
+end
+
+def tunning_frequency(position)
+  x, y = position
+  x * 4_000_000 + y
+end
+
+print "\n"
+puts "beacon position: #{beacon_position}"
+puts "beacon tunning frequency: #{tunning_frequency(beacon_position)}"
