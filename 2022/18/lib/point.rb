@@ -1,8 +1,12 @@
 class Point
+  def self.from_coordinates(array)
+    Point.new(array.join(","))
+  end
+
   attr_reader :x, :y, :z
 
   def initialize(string)
-    @x, @y, @z = string.scan(/\d+/).map(&:to_i)
+    @x, @y, @z = string.scan(/-?\d+/).map(&:to_i)
   end
 
   def coordinates

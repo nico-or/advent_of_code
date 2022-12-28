@@ -8,4 +8,5 @@ DROPLET = Grid.new
 CUBES = INPUT.map { |line| Point.new(line) }
 CUBES.each { |cube| DROPLET << cube }
 
-puts "Droplet surface area: #{DROPLET.surface_area}"
+puts "Droplet total surface area: #{DROPLET.surface_area}"
+puts "Droplet exterior surface area: #{DROPLET.exterior_surface_area}" # 2130, too high

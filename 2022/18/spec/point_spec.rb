@@ -21,4 +21,14 @@ describe Point do
       expect(coordinates).to eq(expected)
     end
   end
+
+  describe ".from_coordinates" do
+    it "creates a point from an array" do
+      coordinates = [3, 5, 7]
+
+      point = Point.from_coordinates(coordinates)
+
+      expect(point.coordinates).to eq(coordinates)
+    end
+  end
 end
