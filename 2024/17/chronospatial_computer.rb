@@ -23,6 +23,11 @@ class ChronospatialComputer
     @output.join(',')
   end
 
+  def output!
+    calculate! until halted?
+    output
+  end
+
   def calculate!
     raise 'computer halted' if halted?
 
