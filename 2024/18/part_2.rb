@@ -26,6 +26,22 @@ def neighbours(pos)
   DIRECTIONS.map { |dir| pos + dir }
 end
 
+def build_edges(vertices, index)
+  bytes = BYTES[..index].to_set
+  edges = Hash.new
+  vertices.keys.each do |from|
+    next if bytes.include? from
+    neighbours(from).each do |to|
+      next if bytes.include? to
+      next unless to.real.between?(0,XSIZE)
+      next unless to.imag.between?(0,YSIZE)
+      edges[from] = [] unless edges.key? from
+      edges[from] << to
+    end
+  end
+  edges
+end
+
 def dijkstra(edges, start_pos)
   prev = Hash.new
   distances = Hash.new(Float::INFINITY)
@@ -49,29 +65,29 @@ def dijkstra(edges, start_pos)
   [distances, prev]
 end
 
+def path_length(edges,from, to)
+  dists, _ = dijkstra(edges, from)
+  dists[to]
+end
+
 START_POS = Complex(0,0)
 END_POS = Complex(XSIZE,YSIZE)
 
-BYTES.each { |pos| VERTICES[pos] = '#' }
+idx_left = 0
+idx_right = BYTES.length - 1
 
-byte = BYTES.reverse_each do |byte_pos|
-  VERTICES[byte_pos] = '.'
+byte_pos = loop do
+  idx_middle = idx_left + (idx_right - idx_left) / 2
+  break BYTES[idx_right] if [idx_left, idx_right].any? { _1.eql? idx_middle }
 
-  edges = Hash.new
-  VERTICES.keys.each do |from|
-    next if edges[from].eql?('#')
+  edges_middle =  build_edges(VERTICES, idx_middle)
+  dist_middle = path_length(edges_middle,START_POS,END_POS)
 
-    neighbours(from).each do |to|
-      next if VERTICES[to].eql?('#')
-      next unless to.real.between?(0,XSIZE)
-      next unless to.imag.between?(0,YSIZE)
-      edges[from] = [] unless edges.key? from
-      edges[from] << to
-    end
+  if dist_middle < Float::INFINITY
+    idx_left = idx_middle
+  else
+    idx_right = idx_middle
   end
-
-  dists, _ = dijkstra(edges, START_POS)
-  break "#{byte_pos.real},#{byte_pos.imag}" if dists[END_POS] < (Float::INFINITY)
 end
 
-puts byte
+puts "#{byte_pos.real},#{byte_pos.imag}"
