@@ -1,0 +1,5 @@
+AllCops:
+  NewCops: enable
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
