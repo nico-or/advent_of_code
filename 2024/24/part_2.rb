@@ -35,13 +35,20 @@ def save_graph(gates, filename)
   File.open("#{filename}.dot",'w') do |f|
     f.puts "graph {"
     counter = 0
-    gates.each do |out,(n_1,n_2,gate)|
-      gate_name = sprintf("%s_%03d", gate, counter)
-      counter += 1
-      f.puts "#{gate_name}[shape=box]"
-      f.puts "{#{[n_1, n_2].join(' ')}} -- #{gate_name}"
-      f.puts "#{gate_name} -- #{out}"
+    (0..44).map { sprintf("x%02d", _1) }.then { f.puts "{#{_1.join(' ')}}" }
+    (0..44).map { sprintf("y%02d", _1) }.then { f.puts "{#{_1.join(' ')}}" }
+
+    %w[XOR AND OR].each do |type|
+      curr_gates = gates.select { |out, (in_1, in_2, gate)| gate.eql? type }
+      curr_gates.each do |out,(n_1,n_2,gate)|
+        gate_name = sprintf("%s_%03d", gate, counter)
+        counter += 1
+        f.puts "#{gate_name}[shape=box]"
+        f.puts "{#{[n_1, n_2].sort.join(' ')}} -- #{gate_name}"
+        f.puts "#{gate_name} -- #{out}"
+      end
     end
+    
     f.write "}"
   end
   system("dot -T svg -o #{filename}.svg #{filename}.dot")
