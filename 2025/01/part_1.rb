@@ -1,7 +1,8 @@
-DIR_DICT = { 'L' => -1, 'R' => 1 }
+# frozen_string_literal: true
+
+DIR_DICT = { 'L' => -1, 'R' => 1 }.freeze
 START_POS = 50
 POS_COUNT = 100
-
 
 def parse_cmd(cmd)
   dir = cmd[0]

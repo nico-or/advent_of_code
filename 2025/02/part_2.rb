@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 filename = ARGV[0]
 
 input = File.read(filename, chomp: true)

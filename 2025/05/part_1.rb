@@ -17,7 +17,7 @@ input.each do |line|
   end
 end
 
-sum = 0 
+sum = 0
 
 items.each do |i|
   sum += 1 if ranges.any? { |r| r.include?(i) }

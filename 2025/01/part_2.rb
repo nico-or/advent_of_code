@@ -1,4 +1,6 @@
-DIR_DICT = { 'L' => -1, 'R' => 1 }
+# frozen_string_literal: true
+
+DIR_DICT = { 'L' => -1, 'R' => 1 }.freeze
 START_POS = 50
 POS_COUNT = 100
 
@@ -17,11 +19,10 @@ curr_pos = START_POS
 password = 0
 
 moves.each do |move|
-  
   old_pos = curr_pos
-  new_pos = curr_pos + move 
+  new_pos = curr_pos + move
   curr_pos = new_pos.modulo(POS_COUNT)
-  
+
   laps = new_pos.div(POS_COUNT)
 
   password += laps.abs
@@ -29,7 +30,7 @@ moves.each do |move|
 
   # arrived at this by testing, but why?
   password -= 1 if curr_pos.zero? && new_pos >= 100
-  password -= 1 if old_pos.zero? && move.negative? 
+  password -= 1 if old_pos.zero? && move.negative?
 end
 
 puts password
