@@ -13,7 +13,6 @@ filename = ARGV[0]
 input = File.readlines(filename, chomp: true)
 moves = input.map { parse_cmd(it) }
 
-# warn: mutation
 curr_pos = START_POS
 password = 0
 
@@ -31,14 +30,6 @@ moves.each do |move|
   # arrived at this by testing, but why?
   password -= 1 if curr_pos.zero? && new_pos >= 100
   password -= 1 if old_pos.zero? && move.negative? 
-  
-#  puts <<~MSG
-#     old: #{old_pos}
-#     move: #{move}
-#     new: #{new_pos}/#{curr_pos}
-#     pwd: #{password}
-#     {'-'*40}
-#   MSG
 end
 
 puts password

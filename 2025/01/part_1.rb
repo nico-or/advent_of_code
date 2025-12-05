@@ -16,7 +16,6 @@ input = File.readlines(filename, chomp: true)
 
 moves = input.map { parse_cmd(it) }
 
-# warn: mutation
 curr_pos = START_POS
 password = 0
 
