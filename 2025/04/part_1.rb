@@ -2,7 +2,11 @@
 
 ROLL_LIMIT = 4
 
-DELTAS = [-1, 1, 0].product([-1, 1, 0]).reject { it == [0, 0] }
+DELTAS = [
+  [1, -1], [1, 0], [1, 1],
+  [0, -1], [0, 1],
+  [-1, -1], [-1, 0], [-1, 1]
+].freeze
 
 filename = ARGV[0]
 
